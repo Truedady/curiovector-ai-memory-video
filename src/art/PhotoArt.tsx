@@ -1,4 +1,5 @@
 import React from 'react';
+import {staticFile} from 'remotion';
 import {FaceBase, FaceExpression, MAN, WOMAN} from './Face';
 
 /** Native size of the illustrated photograph (4:3). */
@@ -175,10 +176,9 @@ export const PhotoArt: React.FC<PhotoArtProps> = ({
           <stop offset="55%" stopColor="#2B1A0C" stopOpacity={0} />
           <stop offset="100%" stopColor="#2B1A0C" stopOpacity={0.55} />
         </radialGradient>
-        <filter id={`grain-${uid}`} x="0" y="0" width="100%" height="100%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={2} seed={4} />
-          <feColorMatrix type="saturate" values="0" />
-        </filter>
+        <pattern id={`grain-${uid}`} patternUnits="userSpaceOnUse" width={256} height={256}>
+          <image href={staticFile('grain.png')} width={256} height={256} />
+        </pattern>
         <linearGradient id={`sweep-${uid}`} x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="#43C5F5" stopOpacity={0} />
           <stop offset="50%" stopColor="#BFEFFF" stopOpacity={0.85} />
@@ -246,10 +246,10 @@ export const PhotoArt: React.FC<PhotoArtProps> = ({
       ) : null}
       {vintage ? (
         <g style={{pointerEvents: 'none'}}>
-          <rect width={PHOTO_W} height={PHOTO_H} fill="#F3C98E" opacity={0.13} style={{mixBlendMode: 'multiply'}} />
+          <rect width={PHOTO_W} height={PHOTO_H} fill="#C98A4A" opacity={0.09} />
           <rect width={PHOTO_W} height={PHOTO_H} fill="#FFF4E0" opacity={0.08} />
           <rect width={PHOTO_W} height={PHOTO_H} fill={`url(#vig-${uid})`} />
-          <rect width={PHOTO_W} height={PHOTO_H} filter={`url(#grain-${uid})`} opacity={0.1} style={{mixBlendMode: 'overlay'}} />
+          <rect width={PHOTO_W} height={PHOTO_H} fill={`url(#grain-${uid})`} opacity={0.045} />
         </g>
       ) : null}
       {trace > 0 ? (

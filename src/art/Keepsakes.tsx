@@ -1,4 +1,5 @@
 import React from 'react';
+import {staticFile} from 'remotion';
 import {C} from '../theme';
 import {FaceBase, FaceExpression, PersonLook} from './Face';
 
@@ -169,10 +170,9 @@ export const FilmFrame: React.FC<{uid: string; change: number; t: number}> = ({u
   return (
     <svg viewBox="0 0 800 600" width="100%" height="100%" style={{display: 'block'}}>
       <defs>
-        <filter id={`fg-${uid}`}>
-          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves={2} seed={Math.floor(t * 12) % 30} />
-          <feColorMatrix type="saturate" values="0" />
-        </filter>
+        <pattern id={`fg-${uid}`} patternUnits="userSpaceOnUse" width={256} height={256} x={(Math.floor(t * 12) * 97) % 256} y={(Math.floor(t * 12) * 61) % 256}>
+          <image href={staticFile('grain.png')} width={256} height={256} />
+        </pattern>
       </defs>
       <g style={{filter: `grayscale(${1 - change}) sepia(${0.35 * (1 - change)}) contrast(${1 + 0.1 * change})`}}>
         <rect width={800} height={600} fill="#9CC3DA" />
@@ -197,7 +197,7 @@ export const FilmFrame: React.FC<{uid: string; change: number; t: number}> = ({u
           <path d="M -20 30 L -20 90 M 20 30 L 20 90" stroke="#2E4364" strokeWidth={14} />
         </g>
       </g>
-      <rect width={800} height={600} filter={`url(#fg-${uid})`} opacity={0.35 * (1 - change) + 0.04} style={{mixBlendMode: 'overlay'}} />
+      <rect width={800} height={600} fill={`url(#fg-${uid})`} opacity={0.35 * (1 - change) + 0.04} style={{mixBlendMode: 'overlay'}} />
       <rect width={800} height={600} fill="#fff" opacity={flick} />
       <path d={`M ${300 + ((t * 300) % 400)} 0 L ${304 + ((t * 300) % 400)} 600`} stroke="#fff" strokeWidth={2} opacity={0.4 * (1 - change)} />
     </svg>

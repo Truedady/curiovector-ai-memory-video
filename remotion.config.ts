@@ -4,6 +4,7 @@ import fs from 'fs';
 Config.setVideoImageFormat('jpeg');
 Config.setJpegQuality(92);
 Config.setOverwriteOutput(true);
+Config.setConcurrency(4);
 Config.setChromiumOpenGlRenderer('swangle');
 
 // Use a locally installed headless Chromium when present (cloud containers);
