@@ -1,0 +1,24 @@
+{
+  "name": "curiovector-ai-memory-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CurioVector Episode 4 — AI can make you remember things that never happened (Remotion)",
+  "scripts": {
+    "sync-audio": "node -e \"require('fs').copyFileSync('memory_voiceover.mp3','public/memory_voiceover.mp3')\"",
+    "studio": "npm run sync-audio && remotion studio src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "still": "npm run sync-audio && remotion still src/index.ts",
+    "render:landscape": "npm run sync-audio && remotion render src/index.ts CurioVectorMemoryLandscape out/CurioVector_AI_Memory_16x9.mp4 --codec=h264 --audio-codec=aac",
+    "render:shorts": "npm run sync-audio && remotion render src/index.ts CurioVectorMemoryShorts out/CurioVector_AI_Memory_9x16.mp4 --codec=h264 --audio-codec=aac"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.537",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.537"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.12",
+    "typescript": "5.6.3"
+  }
+}
